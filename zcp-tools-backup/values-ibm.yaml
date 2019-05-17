@@ -6,22 +6,23 @@ image:
 
 # CHANGE
 env:
-  #AWS_ACCESS_KEY_ID: 
-  #AWS_SECRET_ACCESS_KEY: 
-  #S3_ENDPOINT: https://xxxx.objectstorage.softlayer.net
-  #S3_BUCKET: zcp-backup
+  AWS_ACCESS_KEY_ID: BkX8mwoleNytLF0b4AcG
+  AWS_SECRET_ACCESS_KEY: 3YmPiOgPEhbepuzpZ1S5pL0D7JKryxrKMQCZwVKt
+  S3_ENDPOINT: https://s3.seo.ap.cloud-object-storage.appdomain.cloud
+  S3_BUCKET: zcp-backup-coinery-mainnet
+  GITEA_DEPLOY: zcp-git-gitea
 
 jenkins:
   schedule: 5 */6 * * *  # CHANGE
   #successfulJobsHistoryLimit:
   #failedJobsHistoryLimit:
-  #serviceAccount:   # CHANGE
+  serviceAccount: zcp-system-sa-cloudzcp-admin  # CHANGE
 
 gitea:
   schedule: 5 */6 * * *  # CHANGE
   #successfulJobsHistoryLimit:
   #failedJobsHistoryLimit:
-  #serviceAccount:   # CHANGE
+  serviceAccount: zcp-system-sa-cloudzcp-admin  # CHANGE
 
 resources:
   requests:
