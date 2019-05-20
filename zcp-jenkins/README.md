@@ -1,5 +1,12 @@
 # The zcp-jenkins Installation Guide
 
+## ZCP-jenkins Component 
+
+| Component        | Version           | Image  | etc |
+| ------------- |-------------|-----|----|
+|Jenkins| 1.121.3 |jenkins/jenkins:1.121.3
+
+
 zcp-jenkins 는 Open Source jenkins 를 사용한다.
 
 zcp-jenkins 설치 전에 필요한 것들.
