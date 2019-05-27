@@ -7,7 +7,7 @@
 |Jenkins| 1.121.3 |jenkins/jenkins:1.121.3
 
 
-zcp-jenkins 는 Open Source jenkins 를 사용한다.
+## 개요
 
 zcp-jenkins 설치 전에 필요한 것들.
 
