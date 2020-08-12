@@ -1,0 +1,257 @@
+## Gitea image
+## ref: https://hub.docker.com/r/gitea/gitea/tags/
+##
+
+tags:
+  mariadb: true
+
+images:
+  registry: docker.io
+  gitea: "gitea/gitea:1.11.5"
+  memcached: "memcached:1.5.19-alpine"
+  pullPolicy: IfNotPresent
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ##
+  # pullSecrets:
+  #   - myRegistryKeySecretName
+
+## Cache settings for memcache
+memcached:
+  maxItemMemory: 64
+  verbosity: v
+  extendedOptions: modern
+
+## Configure the ingress resource that allows you to access the
+## Gitea installation. Set up the URL
+## ref: http://kubernetes.io/docs/user-guide/ingress/
+##
+ingress:
+  ## Set to true to enable ingress record generation
+  enabled: true
+
+  ## Set this to true in order to add the corresponding annotations for cert-manager
+  certManager: false
+
+  ## When the ingress is enabled, a host pointing to this will be created
+  hostname: git.iks-v117.cloudzcp.com
+
+  ## Ingress annotations done as key:value pairs
+  ## For a full list of possible ingress annotations, please see
+  ## ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/annotations.md
+  ##
+  ## If tls is set to true, annotation ingress.kubernetes.io/secure-backends: "true" will automatically be set
+  ## If certManager is set to true, annotation kubernetes.io/tls-acme: "true" will automatically be set
+  annotations: 
+    ingress.bluemix.net/ALB-ID: private-cr934015ddda66464289887531c1af39df-alb1
+    ingress.bluemix.net/client-max-body-size: size=50M
+    ingress.bluemix.net/redirect-to-https: "True"
+  
+  #  certmanager.k8s.io/cluster-issuer: letsencrypt-prod
+  #  kubernetes.io/ingress.class: nginx
+
+  ## The list of additional hostnames to be covered with this ingress record.
+  ## Most likely the hostname above will be enough, but in the event more hosts are needed, this is an array
+  # hosts:
+  # - name: gitea.local
+  #   path: /
+
+  ## The tls configuration for the ingress
+  ## see: https://kubernetes.io/docs/concepts/services-networking/ingress/#tls
+  ## Uncomment below to enable tls / https for let's encrypt / cert-manager
+  tls:    
+   - hosts:    
+     - git.iks-v117.cloudzcp.com
+     secretName: cloudzcp-io-cert
+
+  secrets:
+  ## If you're providing your own certificates, please use this to add the certificates as secrets
+  ## key and certificate should start with -----BEGIN CERTIFICATE----- or
+  ## -----BEGIN RSA PRIVATE KEY-----
+  ##
+  ## name should line up with a tlsSecret set further up
+  ## If you're using cert-manager, this is unneeded, as it will create the secret for you if it is not set
+  ##
+  ## It is also possible to create and manage the certificates outside of this helm chart
+  ## Please see README.md for more information
+  # - name: gitea.local-tls
+  #   key:
+  #   certificate:
+  #
+
+## This chart defaults to using an ingress for http, but change to LoadBalancer if using you cluster supports it
+service:
+
+  ## This can stay as ClusterIP as (by default) we use ingress
+  http:
+    serviceType: ClusterIP
+    port: 3000
+    ## Make the external port available
+    # externalPort: 8280
+    # externalHost: gitea.local
+
+  ## SSH is commonly on port 22.. however.. you most likely already have port 22 being used by your node.
+  ## so we use port 8022.
+  ssh:
+    serviceType: ClusterIP
+    port: 22
+    #nodePort: 30222
+    ## If serving on a different external port used for determining the ssh url in the gui
+    externalPort: 8022
+    externalHost: gitea.local
+    externalIPs: []
+
+## Configure resource requests and limits
+## ref: http://kubernetes.io/docs/user-guide/compute-resources/
+##
+resources:
+  gitea:
+    requests:
+      memory: 500Mi
+      cpu: 1000m
+    limits:
+      memory: 2Gi
+      cpu: 1
+  memcached:
+    requests:
+      memory: 64Mi
+      cpu: 50m
+
+## Enable persistence using Persistent Volume Claims
+## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+## ref:
+##
+persistence:
+  enabled: true
+  # existingGiteaClaim: gitea-gitea
+  giteaSize: 20Gi
+  storageClass: ibmc-file-retain-silver
+  accessMode: ReadWriteMany
+  ## addtional annotations for PVCs. Uncommenting will prevent the PVC from being deleted.
+  annotations:
+    "helm.sh/resource-policy": keep
+
+## if you want to mount a volume directly without using a storageClass or pvcs
+#  directGiteaVolumeMount:
+#    glusterfs:
+#      endpoints: "192.168.1.1 192.168.1.2 192.168.1.3"
+#      path: giteaData
+#  directPostgresVolumeMount:
+#    glusterfs:
+#      endpoints: "192.168.1.1 192.168.1.2 192.168.1.3"
+#      path: giteaPostgresData
+
+
+
+##
+## MariaDB chart configuration
+##
+## https://github.com/helm/charts/blob/master/stable/mariadb/values.yaml
+##
+mariadb:
+  ## Whether to deploy a mariadb server to satisfy the applications database requirements. To use an external database set this to false and configure the externalDatabase parameters
+  enabled: true
+  ## Disable MariaDB replication
+  replication:
+    enabled: false
+
+  ## Create a database and a database user
+  ## ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#creating-a-database-user-on-first-run
+  ##
+  db:
+    name: gitea
+    user: gitea
+    ## If the password is not specified, mariadb will generates a random password
+    ##
+    password: gitea
+
+  ## MariaDB admin password
+  ## ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#setting-the-root-password-on-first-run
+  ##
+  rootUser:
+    password: gitea
+
+  ## Enable persistence using Persistent Volume Claims
+  ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
+  ##
+  master:
+    persistence:
+      enabled: true
+      ## mariadb data Persistent Volume Storage Class
+      ## If defined, storageClassName: <storageClass>
+      ## If set to "-", storageClassName: "", which disables dynamic provisioning
+      ## If undefined (the default) or set to null, no storageClassName spec is
+      ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+      ##   GKE, AWS & OpenStack)
+      ##
+      storageClass: ibmc-block-retain-silver
+      accessMode: ReadWriteOnce
+      size: 20Gi
+
+    tolerations:
+      - key: "management"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: beta.kubernetes.io/arch
+              operator: In
+              values:
+              - "amd64"
+            - key: role
+              operator: In
+              values:
+              - "management"
+
+## Connect to an external database instead
+# externalDB:
+#   dbUser: "postgres"
+#   dbPassword: "<MY_PASSWORD>"
+#   dbHost: "service-name.namespace.svc.cluster.local" # or some external host
+#   dbPort: "5432"
+#   dbDatabase: "gitea"
+
+
+## Actual Gitea configuration (modified the default .ini file for Gitea)
+## This will skip the initial installation screen. You must have a secretKey already defined
+## and disableInstaller set to True
+config:
+##  secretKey: ThisIsMySuperSecretKeyThatsUsedInterally
+  disableInstaller: false
+  offlineMode: false
+  requireSignin: false
+  disableRegistration: false
+  openidSignin: true
+
+## Common helm annotations
+## Node labels and tolerations for pod assignment
+## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
+## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
+nodeSelector: {}
+tolerations:
+  - key: "management"
+    operator: "Equal"
+    value: "true"
+    effect: "NoSchedule"
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: beta.kubernetes.io/arch
+          operator: In
+          values:
+          - "amd64"
+        - key: role
+          operator: In
+          values:
+          - "management"
+
+## Annotations for the deployment and nodes.
+deploymentAnnotations: {}
+podAnnotations: {}

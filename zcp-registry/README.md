@@ -9,6 +9,15 @@ zcp-registry 를 설치하기 이전에 https용 공인 인증서가 필요하�
 $ git clone https://github.com/cnpst/zcp-installation.git
 ```
 
+## Install helm v3
+```
+$ ./get_helm.sh
+```
+## Check helm version
+```
+$ helm3 version
+```
+
 ## for IKS
 
 ### ENV 수정

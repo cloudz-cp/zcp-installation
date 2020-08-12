@@ -4,13 +4,22 @@
 
 | Component        | Version           | Image  | etc |
 | ------------- |-------------|-----|----|
-|Gitea| 1.4 |gitea/gitea:1.4
-|Postgres| 9.6.2 |postgres:9.6.2
+|Gitea| 1.11.5 |gitea/gitea:1.11.5
+|MariaDB| 10.3.20 |bitnami/mariadb:10.3.20
 
 ## Prerequisite
 
 1. `cloudzcp-io-cert` cloudzcp.io 인증서 secret
-2. helm client v2.9.1 이상
+2. helm client v3.2.4 이상
+
+## Install helm v3
+```
+$ ./get_helm.sh
+```
+## Check helm version
+```
+$ helm3 version
+```
 
 ## Install with helm
 
