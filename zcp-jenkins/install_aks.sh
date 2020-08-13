@@ -14,4 +14,4 @@ helm install jenkins-0.14.3-117.tgz --version 0.14.3 \
 --set Ingress.TLS[0].secretName=${DOMAIN_SECRET_NAME} \
 --set Persistence.StorageClass=managed-standard-retain
 
-kubectl create -f zcp-jenkins-maven-eks-pvc.yaml
+kubectl create -f zcp-jenkins-maven-aks-pvc.yaml
