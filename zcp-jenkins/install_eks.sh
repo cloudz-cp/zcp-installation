@@ -2,7 +2,7 @@
 
 # Install jenkins
 # Chart revision for jenkins : https://github.com/helm/charts/tree/605d3d441e6515fcbbf8a69bdc69794d90bbfd5c/stable/jenkins
-helm install jenkins-0.14.3.tgz --version 0.14.3 \
+helm install jenkins-0.14.3-117.tgz --version 0.14.3 \
 --name zcp-jenkins \
 -f values-eks.yaml \
 --namespace ${TARGET_NAMESPACE} \
