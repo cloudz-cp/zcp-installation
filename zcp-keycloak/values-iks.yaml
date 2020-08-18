@@ -4,28 +4,16 @@ common:
     key: management
     operator: Equal
     value: "true"
-  affinity: &affinity
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: beta.kubernetes.io/arch
-            operator: In
-            values:
-            - amd64
-          - key: role
-            operator: In
-            values:
-            - management
+
 init:
   image:
-    repository: registry.au-syd.bluemix.net/cloudzcp/alpine
-    tag: 3.6
+    repository: alpine
+    tag: 3.8
 
 keycloak:
   image:
-    repository: registry.au-syd.bluemix.net/cloudzcp/keycloak
-    tag: 3.4.3.Final
+    repository: jboss/keycloak
+    tag: 4.5.0.Final
 
   tolerations: *tolerations
   affinity: |
@@ -80,9 +68,15 @@ keycloak:
 
   extraArgs: -Dkeycloak.import=/realm/realm-zcp-export.json
 
+  ## Persistence configuration
   persistence:
-    deployPostgres: true
-#    dbHost: zcp-oidc-postgresql
+    # If true, the Postgres chart is deployed
+    deployPostgres: false
+
+    # The database vendor. Can be either "postgres", "mysql", "mariadb", or "h2"
+    dbVendor: postgres
+
+    dbHost: zcp-oidc-postgresql
 
   ingress:
     enabled: true
@@ -91,14 +85,14 @@ keycloak:
     annotations:
       ingress.bluemix.net/redirect-to-https: "True"
 
-postgresql:
-  image: "registry.au-syd.bluemix.net/cloudzcp/postgres"
-  imageTag: "9.6.2"
-
-  tolerations: *tolerations
-  affinity: *affinity
-
-  metrics:
-    enabled: true
-    image: registry.au-syd.bluemix.net/cloudzcp/postgres_exporter
-    imageTag: v0.1.1
+#postgresql:
+#  image: "registry.au-syd.bluemix.net/cloudzcp/postgres"
+#  imageTag: "9.6.2"
+#
+#  tolerations: *tolerations
+#  affinity: *affinity
+#
+#  metrics:
+#    enabled: true
+#    image: registry.au-syd.bluemix.net/cloudzcp/postgres_exporter
+#    imageTag: v0.1.1
