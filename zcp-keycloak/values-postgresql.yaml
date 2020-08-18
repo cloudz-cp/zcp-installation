@@ -1,3 +1,11 @@
+## Bitnami PostgreSQL image version
+## ref: https://hub.docker.com/r/bitnami/postgresql/tags/
+##
+image:
+  registry: au.icr.io
+  repository: cloudzcp/postgresql
+  tag: 11.8.0-debian-10-r76
+
 ##
 ## PostgreSQL Master parameters
 ##

@@ -7,12 +7,12 @@ common:
 
 init:
   image:
-    repository: alpine
+    repository: au.icr.io/cloudzcp/alpine
     tag: 3.8
 
 keycloak:
   image:
-    repository: jboss/keycloak
+    repository: au.icr.io/cloudzcp/keycloak
     tag: 4.5.0.Final
 
   tolerations: *tolerations
