@@ -17,7 +17,7 @@
 # The install script is based off of the MIT-licensed script from glide,
 # the package manager for Go: https://github.com/Masterminds/glide.sh/blob/master/get
 
-: ${BINARY_NAME:="helm3"}
+: ${BINARY_NAME:="helm"}
 : ${USE_SUDO:="true"}
 : ${HELM_INSTALL_DIR:="/usr/local/bin"}
 

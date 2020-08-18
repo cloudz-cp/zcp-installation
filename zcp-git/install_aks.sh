@@ -3,7 +3,7 @@
 # Install gitea
 # Chart revision for jenkins : https://github.com/helm/charts/tree/605d3d441e6515fcbbf8a69bdc69794d90bbfd5c/stable/jenkins
 helm3 install zcp-git gitea-1.3.3.tgz \
--f values-aks-117.yaml \
+-f values-aks.yaml \
 --namespace ${TARGET_NAMESPACE} \
 --set ingress.annotations."kubernetes\.io/ingress\.class"=${GITEA_INGRESS_CONTROLLER} \
 --set ingress.hostname=${GITEA_INGRESS_HOSTS} \
