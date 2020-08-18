@@ -1,0 +1,40 @@
+## Bitnami PostgreSQL image version
+## ref: https://hub.docker.com/r/bitnami/postgresql/tags/
+##
+image:
+  registry: au.icr.io
+  repository: cloudzcp/postgresql
+  tag: 11.8.0-debian-10-r76
+
+##
+## PostgreSQL Master parameters
+##
+master:
+  ## Node, affinity, tolerations, and priorityclass settings for pod assignment
+  ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
+  ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+  ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
+  ## ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: beta.kubernetes.io/arch
+            operator: In
+            values:
+            - amd64
+          - key: role
+            operator: In
+            values:
+            - management
+  tolerations:
+  - effect: NoSchedule
+    key: management
+    operator: Equal
+    value: "true"
+
+## Configure metrics exporter
+##
+metrics:
+  enabled: true
