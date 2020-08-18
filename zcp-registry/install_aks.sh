@@ -15,7 +15,7 @@ HARBOR_AZURE_CONTAINER=zcp-registry-aks-v117
 helm3 repo add harbor https://helm.goharbor.io
 
 helm3 install zcp-registry harbor/harbor --version 1.4.2 \
--f values-aks-117.yaml \
+-f values-aks.yaml \
 --namespace ${TARGET_NAMESPACE} \
 --set expose.ingress.hosts.core=${HARBOR_INGRESS_HOSTS} \
 --set expose.ingress.annotations."kubernetes\.io/ingress\.class"=${HARBOR_INGRESS_CONTROLLER} \

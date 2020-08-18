@@ -6,14 +6,15 @@ zcp-registry 를 설치하기 이전에 https용 공인 인증서가 필요하�
 
 ## Clone this project into the desktop
 ```
-$ git clone https://github.com/cnpst/zcp-installation.git
+$ git clone https://github.com/cloudz-cp/zcp-installation.git
 ```
 
 ## Install helm v3
 ```
-$ ./get_helm.sh
+$ export BINARY_NAME=helm3
+$ ./get_helm.sh --version v3.2.4
 ```
-## Check helm version
+## Check helm3 version
 ```
 $ helm3 version
 ```
@@ -29,19 +30,76 @@ $ vi install_iks.sh
 ```
 # variables
 TARGET_NAMESPACE=zcp-system
-HARBOR_INGRESS_HOSTS=iks-dev-registry.cloudzcp.io
-HARBOR_INGRESS_CONTROLLER=private-cr0ce3d46f6765441ca772dcb67bbf2a40-alb1
+HARBOR_INGRESS_HOSTS=registry.iks-v117.cloudzcp.com
+HARBOR_INGRESS_CONTROLLER=public-crbsocltjt08l1jo5flhag-alb1
+HARBOR_EXTERNAL_URL=https://registry.iks-v117.cloudzcp.com
+DOMAIN_SECRET_NAME=cloudzcp-com-cert
 HARBOR_ADMIN_PASSWORD=
 HARBOR_S3_ACCESSKEY=
 HARBOR_S3_SECRETKEY=
 HARBOR_S3_BUCKET=
-HARBOR_BACKUP_S3_ACCESSKEY=
-HARBOR_BACKUP_S3_SECRETKEY=
-HARBOR_BACKUP_S3_BUCKET=
+HARBOR_S3_REGIONENDPOINT=
+
 ```
 
 ### Helm install 수행
 
 ```
 $ ./install_iks.sh
+```
+
+## for EKS
+
+### ENV 수정
+
+```
+$ vi install_eks.sh
+```
+
+```
+# variables
+TARGET_NAMESPACE=zcp-system
+HARBOR_INGRESS_HOSTS=registry.eks-v117.cloudzcp.com
+HARBOR_INGRESS_CONTROLLER=public-nginx
+HARBOR_EXTERNAL_URL=https://registry.eks-v117.cloudzcp.com
+DOMAIN_SECRET_NAME=cloudzcp-com-cert
+HARBOR_ADMIN_PASSWORD=
+HARBOR_S3_ACCESSKEY=
+HARBOR_S3_SECRETKEY=
+HARBOR_S3_BUCKET=
+
+```
+
+### Helm install 수행
+
+```
+$ ./install_eks.sh
+```
+
+## for AKS
+
+### ENV 수정
+
+```
+$ vi install_aks.sh
+```
+
+```
+# variables
+TARGET_NAMESPACE=zcp-system
+HARBOR_INGRESS_HOSTS=registry.aks-v117.cloudzcp.com
+HARBOR_INGRESS_CONTROLLER=public-nginx
+HARBOR_EXTERNAL_URL=https://registry.aks-v117.cloudzcp.com
+DOMAIN_SECRET_NAME=cloudzcp-com-cert
+HARBOR_ADMIN_PASSWORD=
+HARBOR_AZURE_ACCOUNTNAME=
+HARBOR_AZURE_ACCOUNTKEY=
+HARBOR_AZURE_CONTAINER=
+
+```
+
+### Helm install 수행
+
+```
+$ ./install_aks.sh
 ```
