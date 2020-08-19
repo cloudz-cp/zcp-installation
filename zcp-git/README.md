@@ -10,13 +10,16 @@
 ## Prerequisite
 
 1. `cloudzcp-io-cert` cloudzcp.io 인증서 secret
-2. helm client v3.2.4 이상
+2. helm client v3.0.0 이상
 
 ## Install helm v3
 ```
+$ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+$ chmod 700 get_helm.sh
 $ export BINARY_NAME=helm3
-$ ./get_helm.sh --version v3.2.4
+$ ./get_helm.sh
 ```
+
 ## Check helm version
 ```
 $ helm3 version
