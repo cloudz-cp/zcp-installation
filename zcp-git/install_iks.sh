@@ -2,7 +2,7 @@
 
 # Install gitea
 # Chart revision for jenkins : https://github.com/helm/charts/tree/605d3d441e6515fcbbf8a69bdc69794d90bbfd5c/stable/jenkins
-helm3 install zcp-git gitea-1.3.3.tgz \
+helm3 install zcp-git zcp/zcp-gitea \
 -f values-iks.yaml \
 --namespace ${TARGET_NAMESPACE} \
 --set ingress.annotations."ingress\.bluemix\.net/ALB-ID"=${GITEA_INGRESS_CONTROLLER} \
