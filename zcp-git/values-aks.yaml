@@ -35,7 +35,7 @@ ingress:
   certManager: false
 
   ## When the ingress is enabled, a host pointing to this will be created
-  hostname: git.iks-v117.cloudzcp.com
+  hostname: git.aks-v117.cloudzcp.com
 
   ## Ingress annotations done as key:value pairs
   ## For a full list of possible ingress annotations, please see
@@ -44,9 +44,9 @@ ingress:
   ## If tls is set to true, annotation ingress.kubernetes.io/secure-backends: "true" will automatically be set
   ## If certManager is set to true, annotation kubernetes.io/tls-acme: "true" will automatically be set
   annotations: 
-    ingress.bluemix.net/ALB-ID: private-cr934015ddda66464289887531c1af39df-alb1
-    ingress.bluemix.net/client-max-body-size: size=50M
-    ingress.bluemix.net/redirect-to-https: "True"
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
   
   #  certmanager.k8s.io/cluster-issuer: letsencrypt-prod
   #  kubernetes.io/ingress.class: nginx
@@ -62,7 +62,7 @@ ingress:
   ## Uncomment below to enable tls / https for let's encrypt / cert-manager
   tls:    
    - hosts:    
-     - git.iks-v117.cloudzcp.com
+     - git.aks-v117.cloudzcp.com
      secretName: cloudzcp-io-cert
 
   secrets:
@@ -126,7 +126,7 @@ persistence:
   enabled: true
   # existingGiteaClaim: gitea-gitea
   giteaSize: 20Gi
-  storageClass: ibmc-file-retain-silver
+  storageClass: file-standard-retain
   accessMode: ReadWriteMany
   ## addtional annotations for PVCs. Uncommenting will prevent the PVC from being deleted.
   annotations:
@@ -185,7 +185,7 @@ mariadb:
       ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
       ##   GKE, AWS & OpenStack)
       ##
-      storageClass: ibmc-block-retain-silver
+      storageClass: managed-standard-retain
       accessMode: ReadWriteOnce
       size: 20Gi
 
