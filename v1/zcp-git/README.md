@@ -4,13 +4,26 @@
 
 | Component        | Version           | Image  | etc |
 | ------------- |-------------|-----|----|
-|Gitea| 1.4 |gitea/gitea:1.4
-|Postgres| 9.6.2 |postgres:9.6.2
+|Gitea| 1.11.5 |gitea/gitea:1.11.5
+|MariaDB| 10.3.20 |bitnami/mariadb:10.3.20
 
 ## Prerequisite
 
 1. `cloudzcp-io-cert` cloudzcp.io 인증서 secret
-2. helm client v2.9.1 이상
+2. helm client v3.0.0 이상
+
+## Install helm v3
+```
+$ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+$ chmod 700 get_helm.sh
+$ export BINARY_NAME=helm3
+$ ./get_helm.sh
+```
+
+## Check helm version
+```
+$ helm3 version
+```
 
 ## Install with helm
 
@@ -68,4 +81,32 @@ GITEA_INGRESS_CONTROLLER=nginx
 
 ```
 $ ./install_eks.sh
+```
+
+### for AKS
+
+#### env.properties 파일 수정
+env.properties 파일을 편집기로 열어 아래 항목을 프로젝트에 맞게 수정한다.
+
+```
+$ vi env.properties 
+```
+
+```
+# target namespace installed
+TARGET_NAMESPACE=zcp-system
+
+# gitea domain certificate secret name
+DOMAIN_SECRET_NAME=cloudzcp-io-cert
+
+# gitea domain host
+GITEA_INGRESS_HOSTS=aks-dev-git.cloudzcp.io
+GITEA_INGRESS_TLS_HOSTS=aks-dev-git.cloudzcp.io
+GITEA_INGRESS_CONTROLLER=public-nginx
+```
+
+#### Helm install 수행
+
+```
+$ ./install_aks.sh
 ```
