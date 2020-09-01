@@ -12,6 +12,6 @@ helm install jenkins-0.14.3-117.tgz --version 0.14.3 \
 --set Master.Ingress.Annotations."kubernetes\.io/ingress\.class"=${JENKINS_INGRESS_CONTROLLER} \
 --set Master.Ingress.TLS[0].hosts[0]=${JENKINS_INGRESS_TLS_HOSTS} \
 --set Master.Ingress.TLS[0].secretName=${DOMAIN_SECRET_NAME} \
---set Persistence.StorageClass=efs-zcp
+--set Persistence.StorageClass=efs-zcp-retain
 
 kubectl create -f zcp-jenkins-maven-eks-pvc.yaml
