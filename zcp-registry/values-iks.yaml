@@ -225,7 +225,7 @@ persistence:
       size: 5Gi
     jobservice:
       existingClaim: ""
-      storageClass: ibmc-file-silver
+      storageClass: ""
       subPath: ""
       accessMode: ReadWriteOnce
       size: 20Gi

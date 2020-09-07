@@ -23,11 +23,11 @@ helm3 install zcp-registry harbor/harbor --version 1.4.2 \
 --set externalURL=${HARBOR_EXTERNAL_URL} \
 --set expose.tls.secretName=${DOMAIN_SECRET_NAME} \
 --set harborAdminPassword=${HARBOR_ADMIN_PASSWORD} \
---set persistence.persistentVolumeClaim.jobservice.storageClass=ibmc-file-silver \
+--set persistence.persistentVolumeClaim.jobservice.storageClass=ibmc-block-retain-silver \
 --set persistence.persistentVolumeClaim.jobservice.size=20Gi \
---set persistence.persistentVolumeClaim.database.storageClass=ibmc-block-silver \
+--set persistence.persistentVolumeClaim.database.storageClass=ibmc-block-retain-silver \
 --set persistence.persistentVolumeClaim.database.size=20Gi \
---set persistence.persistentVolumeClaim.redis.storageClass=ibmc-block-silver \
+--set persistence.persistentVolumeClaim.redis.storageClass=ibmc-block-retain-silver \
 --set persistence.persistentVolumeClaim.redis.size=20Gi \
 --set persistence.imageChartStorage.s3.accesskey=${HARBOR_S3_ACCESSKEY} \
 --set persistence.imageChartStorage.s3.secretkey=${HARBOR_S3_SECRETKEY} \
