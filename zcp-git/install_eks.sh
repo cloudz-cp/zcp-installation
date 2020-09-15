@@ -1,5 +1,7 @@
 . env.properties
 
+helm3 repo add zcp https://raw.githubusercontent.com/cnpst/charts/master/docs
+
 # Install gitea
 # Chart revision for jenkins : https://github.com/helm/charts/tree/605d3d441e6515fcbbf8a69bdc69794d90bbfd5c/stable/jenkins
 helm3 install zcp-git zcp/zcp-gitea \
