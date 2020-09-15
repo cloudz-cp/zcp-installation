@@ -38,3 +38,8 @@ master:
 ##
 metrics:
   enabled: true
+  
+  image:
+    registry: au.icr.io
+    repository: cloudzcp/postgres-exporter
+    tag: 0.8.0-debian-10-r184
