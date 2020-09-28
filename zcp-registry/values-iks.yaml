@@ -337,7 +337,7 @@ imagePullPolicy: IfNotPresent
 
 # Use this set to assign a list of default pullSecrets
 imagePullSecrets:
- - name: docker-registry-secret
+#  - name: docker-registry-secret
 #  - name: internal-registry-secret
 
 # The update strategy for deployments with persistent volumes(jobservice, registry

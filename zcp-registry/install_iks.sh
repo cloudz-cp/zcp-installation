@@ -12,7 +12,6 @@ HARBOR_S3_ACCESSKEY=
 HARBOR_S3_SECRETKEY=
 HARBOR_S3_BUCKET=
 HARBOR_S3_REGIONENDPOINT=
-IMAGE_PULL_SECRET=
 IMAGE_REPOSITORY=registry.au-syd.bluemix.net/cloudzcp
 
 # Install harbor
@@ -37,7 +36,6 @@ helm3 install zcp-registry harbor/harbor --version 1.4.2 \
 --set persistence.imageChartStorage.s3.secretkey=${HARBOR_S3_SECRETKEY} \
 --set persistence.imageChartStorage.s3.bucket=${HARBOR_S3_BUCKET} \
 --set persistence.imageChartStorage.s3.regionendpoint=${HARBOR_S3_REGIONENDPOINT} \
---set imagePullSecrets[0].name=${IMAGE_PULL_SECRET} \
 --set nginx.image.repository=${IMAGE_REPOSITORY}/nginx-photon \
 --set portal.image.repository=${IMAGE_REPOSITORY}/harbor-portal \
 --set core.image.repository=${IMAGE_REPOSITORY}/harbor-core \
