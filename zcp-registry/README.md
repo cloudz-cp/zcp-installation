@@ -33,9 +33,12 @@ $ vi install_iks.sh
 ```
 # variables
 TARGET_NAMESPACE=zcp-system
-HARBOR_INGRESS_HOSTS=registry.iks-v117.cloudzcp.com
-HARBOR_INGRESS_CONTROLLER=public-crbsocltjt08l1jo5flhag-alb1
-HARBOR_EXTERNAL_URL=https://registry.iks-v117.cloudzcp.com
+HARBOR_INGRESS_HOSTS=
+HARBOR_NOTARY_INGRESS_HOSTS=
+HARBOR_INGRESS_CONTROLLER=
+# 상기 HARBOR_INGRESS_HOSTS 값 앞에 https:// 추가함.
+# 예시) HARBOR_EXTERNAL_URL=https://registry.cloudzcp.io
+HARBOR_EXTERNAL_URL=
 DOMAIN_SECRET_NAME=cloudzcp-io-cert
 HARBOR_ADMIN_PASSWORD=
 HARBOR_S3_ACCESSKEY=
@@ -62,9 +65,12 @@ $ vi install_eks.sh
 ```
 # variables
 TARGET_NAMESPACE=zcp-system
-HARBOR_INGRESS_HOSTS=registry.eks-v117.cloudzcp.com
-HARBOR_INGRESS_CONTROLLER=public-nginx
-HARBOR_EXTERNAL_URL=https://registry.eks-v117.cloudzcp.com
+HARBOR_INGRESS_HOSTS=
+HARBOR_NOTARY_INGRESS_HOSTS=
+HARBOR_INGRESS_CONTROLLER=
+# 상기 HARBOR_INGRESS_HOSTS 값 앞에 https:// 추가함.
+# 예시) HARBOR_EXTERNAL_URL=https://registry.cloudzcp.io
+HARBOR_EXTERNAL_URL=
 DOMAIN_SECRET_NAME=cloudzcp-io-cert
 HARBOR_ADMIN_PASSWORD=
 HARBOR_S3_ACCESSKEY=
@@ -90,9 +96,12 @@ $ vi install_aks.sh
 ```
 # variables
 TARGET_NAMESPACE=zcp-system
-HARBOR_INGRESS_HOSTS=registry.aks-v117.cloudzcp.com
-HARBOR_INGRESS_CONTROLLER=public-nginx
-HARBOR_EXTERNAL_URL=https://registry.aks-v117.cloudzcp.com
+HARBOR_INGRESS_HOSTS=
+HARBOR_NOTARY_INGRESS_HOSTS=
+HARBOR_INGRESS_CONTROLLER=
+# 상기 HARBOR_INGRESS_HOSTS 값 앞에 https:// 추가함.
+# 예시) HARBOR_EXTERNAL_URL=https://registry.cloudzcp.io
+HARBOR_EXTERNAL_URL=
 DOMAIN_SECRET_NAME=cloudzcp-io-cert
 HARBOR_ADMIN_PASSWORD=
 HARBOR_AZURE_ACCOUNTNAME=
