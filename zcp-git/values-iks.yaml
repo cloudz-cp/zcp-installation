@@ -17,6 +17,8 @@ images:
   # pullSecrets:
   #   - myRegistryKeySecretName
 
+imagePullSecrets : "imagepullsecrets"
+
 ## Cache settings for memcache
 memcached:
   maxItemMemory: 64
