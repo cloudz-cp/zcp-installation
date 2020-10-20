@@ -51,7 +51,7 @@ expose:
   ingress:
     hosts:
       core: registry.iks-v117.cloudzcp.com
-      notary: notary.iks-v117.cloudzcp.com
+      notary: 
     # set to the type of ingress controller if it has specific requirements.
     # leave as `default` for most ingress controllers.
     # set to `gce` if using the GCE ingress controller
@@ -629,7 +629,7 @@ trivy:
   podAnnotations: {}
 
 notary:
-  enabled: true
+  enabled: false
   server:
     # set the service account to be used, default if left empty
     serviceAccountName: ""

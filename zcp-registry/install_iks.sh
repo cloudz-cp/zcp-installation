@@ -3,7 +3,6 @@
 # variables
 TARGET_NAMESPACE=zcp-system
 HARBOR_INGRESS_HOSTS=
-HARBOR_NOTARY_INGRESS_HOSTS=
 HARBOR_INGRESS_CONTROLLER=
 HARBOR_EXTERNAL_URL=
 DOMAIN_SECRET_NAME=cloudzcp-io-cert
@@ -21,7 +20,6 @@ helm3 install zcp-registry harbor/harbor --version 1.4.2 \
 -f values-iks.yaml \
 --namespace ${TARGET_NAMESPACE} \
 --set expose.ingress.hosts.core=${HARBOR_INGRESS_HOSTS} \
---set expose.ingress.hosts.notary=${HARBOR_NOTARY_INGRESS_HOSTS} \
 --set expose.ingress.annotations."ingress\.bluemix\.net/ALB-ID"=${HARBOR_INGRESS_CONTROLLER} \
 --set externalURL=${HARBOR_EXTERNAL_URL} \
 --set expose.tls.secretName=${DOMAIN_SECRET_NAME} \
