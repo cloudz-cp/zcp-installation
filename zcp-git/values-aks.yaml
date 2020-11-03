@@ -126,8 +126,8 @@ persistence:
   enabled: true
   # existingGiteaClaim: gitea-gitea
   giteaSize: 20Gi
-  storageClass: file-standard-retain
-  accessMode: ReadWriteMany
+  storageClass: managed-standard-retain
+  accessMode: ReadWriteOnce
   ## addtional annotations for PVCs. Uncommenting will prevent the PVC from being deleted.
   annotations:
     "helm.sh/resource-policy": keep

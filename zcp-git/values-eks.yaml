@@ -126,8 +126,8 @@ persistence:
   enabled: true
   # existingGiteaClaim: gitea-gitea
   giteaSize: 20Gi
-  storageClass: efs-zcp-retain
-  accessMode: ReadWriteMany
+  storageClass: ebs-gp2-retain
+  accessMode: ReadWriteOnce
   ## addtional annotations for PVCs. Uncommenting will prevent the PVC from being deleted.
   annotations:
     "helm.sh/resource-policy": keep
@@ -185,7 +185,7 @@ mariadb:
       ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
       ##   GKE, AWS & OpenStack)
       ##
-      storageClass: efs-zcp-retain
+      storageClass: ebs-gp2-retain
       accessMode: ReadWriteOnce
       size: 20Gi
 
