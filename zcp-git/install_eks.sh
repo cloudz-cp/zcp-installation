@@ -11,5 +11,5 @@ helm3 install zcp-git zcp/zcp-gitea \
 --set ingress.hostname=${GITEA_INGRESS_HOSTS} \
 --set ingress.tls[0].hosts[0]=${GITEA_INGRESS_TLS_HOSTS} \
 --set ingress.tls[0].secretName=${DOMAIN_SECRET_NAME} \
---set persistence.storageClass=ebs-gp2-retain \
+--set persistence.storageClass=efs-zcp-retain \
 --set mariadb.master.persistence.storageClass=ebs-gp2-retain \

@@ -126,7 +126,7 @@ persistence:
   enabled: true
   # existingGiteaClaim: gitea-gitea
   giteaSize: 20Gi
-  storageClass: ebs-gp2-retain
+  storageClass: efs-zcp-retain
   accessMode: ReadWriteOnce
   ## addtional annotations for PVCs. Uncommenting will prevent the PVC from being deleted.
   annotations:
